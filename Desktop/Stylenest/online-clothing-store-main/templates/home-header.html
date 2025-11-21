@@ -1,0 +1,18 @@
+{% load static %}
+{% load template_tags %}
+{% include 'nav.html' %}
+<header class="home-header no-overflow">
+  
+  <div class="showcase overlay-bg">
+    <div class="inside-showcase inner-container">
+      <div class="showcase-writeup">
+        <h3>Shop With Us</h3>
+        <p>This product is crafted with great attention to detail, ensuring both comfort and durability. Designed to match modern style trends, it offers a perfect balance of quality and functionality. Whether worn casually or for special occasions, it delivers a premium look and feel that stands out effortlessly.        
+        <div class="showcase-link">
+          <a href="{% url "cart:product-list" %}">SHOP NOW</a>
+          <a href="">MEMBERSHIP</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

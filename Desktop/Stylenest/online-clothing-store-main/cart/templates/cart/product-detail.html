@@ -1,0 +1,151 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% load humanize %}
+{% block header %} 
+{% include 'header.html' %}
+{% endblock header %} 
+
+{% block content %}
+<div class="no-overflow">
+  <div class="inner-container">
+    <div class="product-details-cart">
+      <div class="swiper-container no-overflow">
+        <div class="swiper gallery-top">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="{{product.image_1.url}}" alt="" srcset="">
+            </div>
+            {% if product.image_2 %}
+            <div class="swiper-slide">
+              <img src="{{product.image_2.url}}" alt="" srcset="">
+            </div>
+            {% endif %}
+            {% if product.image_3 %}
+            <div class="swiper-slide">
+              <img src="{{product.image_3.url}}" alt="" srcset="">
+            </div>
+            {% endif %}
+            {% if product.image_4 %}
+            <div class="swiper-slide">
+              <img src="{{product.image_4.url}}" alt="" srcset="">
+            </div>
+            {% endif %}
+          </div>
+          
+          <!-- Add Arrows -->
+          <div class="swiper-button-next swiper-button-white"></div>
+          <div class="swiper-button-prev swiper-button-white"></div>
+        </div>
+        <div class="swiper gallery-thumbs">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="{{product.image_1.url}}" alt="" srcset=""></div>
+            {% if product.image_2 %}
+            <div class="swiper-slide"><img src="{{product.image_2.url}}" alt="" srcset=""></div>
+            {% endif %}
+            {% if product.image_3 %}
+            <div class="swiper-slide"><img src="{{product.image_3.url}}" alt="" srcset=""></div>
+            {% endif %}
+            {% if product.image_4 %}
+            <div class="swiper-slide"><img src="{{product.image_4.url}}" alt="" srcset=""></div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+  
+      <div class="form-container">
+        <h4>{{product.title|title}}</h4>
+    
+        <div class="product-tags">
+          <h5>Categories : </h5>
+          {% for category in product.categories.all %}
+          <a href="{% url 'cart:category-products' category %}" class="tags">{{category}}</a>
+          {% endfor %}
+        </div>
+        <div class="product-tags">
+          <h5>Tags : </h5>
+          {% for tag in product.tags.all %}
+          <a href="{% url 'cart:tag-products' tag %}" class="tags">{{tag}}</a>
+          {% endfor %}
+        </div>
+        <div class="product-tags">
+          <h5>Availability in stock : </h5>
+          {% if product.in_stock %}
+          <p class="in-stock">available *<span id="stock-count">{{product.stock}}</span></p>
+          {% else %}
+          <p class="not-stock">Not available</p>
+          {% endif %}
+        </div>
+        <div class="product-tags">
+          <h5>Amount: </h5>
+          {% if product.discount_price %}
+          <span class="dashed-price">₹{{product.price|intcomma}}</span> <span>₹{{product.discount_price|intcomma}}</span>
+          {% else %}
+          <span>₹{{product.price|intcomma}}</span>
+          {% endif %}
+        </div>
+        {% if product.in_stock %}
+        <form action="" method="post">
+          {% csrf_token %}
+          <div class="incremental">
+            <button type="button" id="btnminus" onclick="btnMinus()">-</button>
+            {{form.quantity}}
+            <button type="button" id="btnplus" onclick="btnPlus()">+</button>
+          </div>
+        {% endif %}
+          {% for error in form.quantity.errors %}
+          <p class="errors">{{error}}</p>
+          {% endfor %}
+          <div class="form-div">
+            {{form.colour}}
+            {{form.size}}
+          </div>
+          <button type="submit">Add to Cart <img src="{% static '/img/icons/icons8-add-shopping-cart-30.png' %}" alt="" srcset=""></button>
+        </form>
+        {% if form.non_field_errors %}
+          {% for error in form.non_field_errors %}
+          <p class="errors">{{error}}</p>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+<div class="inner-container desc">
+  <h4>
+    DESCRIPTION
+  </h4>
+  <P>
+    This product is crafted with great attention to detail, ensuring both comfort and durability. 
+    Designed to match modern style trends, it offers a perfect balance of quality and functionality.
+     Whether worn casually or for special occasions, it delivers a premium look and feel that stands out effortlessly. 
+     </P>
+ </div>
+<!-- similar products -->
+<div class="head-text">
+  <div class="flex-three">
+    <div class="lines"></div>
+    <h4>Similar products</h4>
+    <div class="lines"></div>
+  </div>
+  <p>Here are some similar products you may like</p>
+</div>
+<div class="inner-container">
+  <div class="grid-column-4">
+
+    {% for product in similar_products %}  
+    {% include 'cart/product-grids.html' %}
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock content %}
+
+{% block footer %} 
+{% include 'footer.html' %} 
+{% endblock footer %}
+
+{% block js %}
+<script src="{% static '/js/add-to-cart.js' %}"></script> 
+{% endblock js %}
