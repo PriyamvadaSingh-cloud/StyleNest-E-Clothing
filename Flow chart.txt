@@ -1,0 +1,51 @@
+graph TD
+    A[ONLINE-CLOTHING-STORE-MA] --> B(Project Root Directory)
+
+    subgraph Project Files and Config
+        B --> F(.env - Environment Variables)
+        B --> G(.env.example - Example Config)
+        B --> H(.gitignore - Git exclusion rules)
+        B --> I(crontab - Scheduled tasks config)
+        B --> J(db.sqlite3 - Database File)
+        B --> K(manage.py - Django management script)
+        B --> L(README.md - Project Description)
+        B --> M(reqs.txt / requirements.txt - Python Dependencies)
+    end
+
+    subgraph Applications and Core Components
+        B --> B1(account/)
+        B --> B2(cart/)
+        B --> B3(core/ - Core settings/utility)
+        B --> B4(ecommerce/ - Main Product/Store Logic)
+        B --> B5(payment/)
+        B --> B6(scripts/ - Custom scripts)
+        B --> B7(staff/)
+    end
+
+    subgraph Static and Media Assets
+        B --> N(env/ - Python Virtual Environment)
+        B --> O(media/ - User Uploaded Files)
+        B --> P(static/ - Public/Client-side Assets)
+        P --> P1(css/)
+        P --> P2(fonts/)
+        P --> P3(img/)
+        P --> P4(js/)
+        P --> P5(scss/)
+    end
+
+    subgraph HTML/Template Files
+        B --> Q(templates/ - HTML Templates)
+    end
+
+
+    style B1 fill:#f9f,stroke:#333
+    style B2 fill:#f9f,stroke:#333
+    style B3 fill:#f9f,stroke:#333
+    style B4 fill:#f9f,stroke:#333
+    style B5 fill:#f9f,stroke:#333
+    style B7 fill:#f9f,stroke:#333
+    style P fill:#ccf,stroke:#333
+    style Q fill:#ddf,stroke:#333
+    style J fill:#fcc,stroke:#333
+    style K fill:#cfc,stroke:#333
+    style M fill:#cff,stroke:#333
